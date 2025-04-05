@@ -4,7 +4,7 @@
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Accueil</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Mes listes</a></li>
             </ul>
-            <p class="text-center text-body-secondary">© 2025 Checkit</p>
+            <p class="text-center text-body-secondary">© 2025 CheckIt</p>
         </footer>
     </div>
 
