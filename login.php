@@ -1,19 +1,22 @@
 <?php 
-require_once __DIR__."/templates/header.php" ;
-require_once __DIR__."/lib/pdo.php";
-require_once __DIR__."/lib/user.php";
+    require_once __DIR__ . "/templates/header.php"; 
+    require_once __DIR__ . "/lib/pdo.php"; 
+    require_once __DIR__ . "/lib/user.php";
 
-$errors=[];
+    $errors = [];
 
-if(isset($_POST['loginUser'])){
-    $user=verifyUserLoginPassword($pdo,$_POST['email'],$_POST['password']);
-    if($user){
-        var_dump($user);
-    }else{
-        $errors[]="Email ou mot de passe incorrect";
+    if (isset($_POST['loginUser'])) {
+        $user = verifyUserLoginPassword($pdo, $_POST['email'], $_POST['password']);
+
+        if ($user) {
+            // on va le connecter => session
+            $_SESSION['user'] = $user;
+            header('location: index.php');
+        } else {
+            // afficher une erreur
+            $errors[] = "Email ou mot de passe incorrect";
+        }
     }
-}
-
 ?>
 
 <div class="container col-xxl-8 px-4 py-5">

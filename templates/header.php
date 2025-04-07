@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . "/../lib/session.php";
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -22,7 +26,12 @@
                 <li><a href="#" class="nav-link px-2">Mes listes</a></li>
             </ul>
             <div class="col-md-3 text-end">
-                <a href="login.php" class="btn btn-outline-primary me-2">Connexion</a>
+                <?php 
+                    if (isset($_SESSION['user'])){ ?>
+                    <a href="logout.php" class="btn btn-outline-primary me-2">Deconnexion</a>
+                <?php } else { ?>
+                    <a href="login.php" class="btn btn-outline-primary me-2">Connexion</a>
+                <?php } ?>
             </div>
         </header>
     </div>
