@@ -18,7 +18,7 @@
             </div>
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 link-secondary">Accueil</a></li>
+                <li><a href="index.php" class="nav-link px-2 link-secondary">Accueil</a></li>
                 <li><a href="#" class="nav-link px-2">Mes listes</a></li>
             </ul>
             <div class="col-md-3 text-end">

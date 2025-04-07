@@ -1,7 +1,7 @@
 <?php
 try 
 {
-    $pdo=new PDO ("mysql:dbname=checkit;host=localhost","root","root");
+    $pdo = new PDO ("mysql:dbname=checkit;host=localhost","root","root");
 }
 catch(Exception $e)
 {
