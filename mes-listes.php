@@ -11,7 +11,7 @@
 <div class="container">
     <div class="d-flex align-items-center justify-content-between">
         <h1>Mes listes</h1>
-        <a href="#" class="btn btn-primary">Ajouter une liste</a>
+        <a href="ajout-modification-liste.php" class="btn btn-primary">Ajouter une liste</a>
     </div>
     <?php if (isset($_SESSION['user'])){ 
         if ($lists) {
