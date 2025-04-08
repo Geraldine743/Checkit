@@ -3,7 +3,7 @@
     require_once __DIR__ . "/lib/pdo.php";
     require_once __DIR__ . "/lib/list.php";
 
-    if (isset($_SESSION['user'])){ 
+    if (isUserConnected()){ 
         $lists = getListsByUserId($pdo, $_SESSION['user']['id']);
     }
 ?>
@@ -13,7 +13,7 @@
         <h1>Mes listes</h1>
         <a href="ajout-modification-liste.php" class="btn btn-primary">Ajouter une liste</a>
     </div>
-    <?php if (isset($_SESSION['user'])){ 
+    <?php if (isUserConnected()){ 
         if ($lists) {
             foreach ($lists as $list) { ?>
                 <div class="col-md-4 my-2">

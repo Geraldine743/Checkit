@@ -6,6 +6,10 @@ require_once __DIR__."/lib/category.php";
 
 $categories = getCategories($pdo);
 
+if(!isUserConnected()){
+    header('location: login.php');
+}
+
 ?>
 
 <div class="container col-xxl-8">

@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+function isUserConnected():bool
+{
+    return isset($_SESSION['user']);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +33,7 @@ session_start();
             </ul>
             <div class="col-md-3 text-end">
                 <?php 
-                    if (isset($_SESSION['user'])){ ?>
+                    if (isUserConnected()){ ?>
                     <a href="logout.php" class="btn btn-outline-primary me-2">Deconnexion</a>
                 <?php } else { ?>
                     <a href="login.php" class="btn btn-outline-primary me-2">Connexion</a>
