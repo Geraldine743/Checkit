@@ -1,4 +1,12 @@
-<?php require_once __DIR__."/templates/header.php"?>
+<?php 
+require_once __DIR__."/templates/header.php";
+require_once __DIR__."/lib/pdo.php";
+require_once __DIR__."/lib/list.php";
+require_once __DIR__."/lib/category.php";
+
+$categories = getCategories($pdo);
+
+?>
 
 <div class="container col-xxl-8">
     <h1>Liste</h1>
@@ -19,7 +27,9 @@
                         <div class="mb-3">
                             <label for="category_id" class="form-label">Categorie</label>
                             <select name="category_id" id="category_id" class="form-control">
-                                <option value="test">Test</option>
+                                <?php foreach($categories as $category) {?>
+                                    <option value="<?= $category['id']?>"><?= $category['name']?></option>
+                                <?php } ?>
                             </select>
                         </div>
                         <div class="mb-3">
