@@ -13,6 +13,7 @@
         <h1>Mes listes</h1>
         <a href="ajout-modification-liste.php" class="btn btn-primary">Ajouter une liste</a>
     </div>
+    <div class="row">
     <?php if (isUserConnected()){ 
         if ($lists) {
             foreach ($lists as $list) { ?>
@@ -41,6 +42,7 @@
     <?php } else { ?>
         <p>Pour consulter vos listes, vous devez être connecté</p>
     <?php } ?>
+    </div>
 </div>
 
 
