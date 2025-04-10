@@ -56,6 +56,14 @@ if (isset($_POST['saveListItem'])) {
     }
 }
 
+//supression d'un item
+if(isset($_GET['action'])&& isset($_GET['item_id'])){
+    if($_GET['action'] === 'deleteListItem'){
+        $res = deleteListItemById($pdo, $_GET['item_id']);
+        header('Location: ajout-modification-liste.php?id=' . $_GET['id']);
+    }
+}
+
 $editMode = false;
 if(isset($_GET['id'])){
     $list = getListById($pdo, (int)$_GET['id']);
@@ -150,7 +158,7 @@ if(isset($_GET['id'])){
                                             <input type="submit" value="Enregistrer" name="saveListItem" class="btn btn-primary">
                                         </div>
                                     </form>
-                                </div>
+                                    <a class="btn btn-outline-primary" href="?id=<?=$_GET['id']?>&action=deleteListItem&item_id=<?=$item['id'] ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet item ?')"><i class="bi bi-trash3-fill"></i> Supprimer</a>
                             </div>
                         </div>
                     </div>

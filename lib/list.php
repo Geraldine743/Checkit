@@ -70,3 +70,10 @@ function saveListItem(PDO $pdo, string $name, int $listId, bool $status, int $id
 
     return $query->execute();
 }
+
+function deleteListItemById(PDO $pdo, int $id):bool
+{
+    $query = $pdo->prepare("DELETE FROM item WHERE id = :id");
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    return $query->execute();
+}
