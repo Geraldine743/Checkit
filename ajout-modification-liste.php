@@ -12,6 +12,7 @@ if(!isUserConnected()){
 
 
 $errorsList = [];
+$errorsListItem = [];
 $messageList = [];
 
 $list = [
@@ -40,6 +41,18 @@ if (isset($_POST['saveList'])) {
     } else {
         // erreur
         $errorsList[] = "Le titre est obligatoire";
+    }
+}
+
+//Le formulaire d'ajout/modif d'item a été envoyé
+if (isset($_POST['saveItem'])) {
+    if (!empty($_POST['name'])) {
+        //envoie du formulaire
+        $res = saveListItem($pdo, $_POST['name'], (int)$_GET['id'], false);
+        var_dump($res);
+    } else {
+        //erreur
+        $errorsListItem[] = "Le nom de l'item est obligatoire.";
     }
 }
 
@@ -97,6 +110,28 @@ if(isset($_GET['id'])){
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row mt-3">
+        <?php if (!$editMode) { ?>
+            <div class="alert alert-warning">
+                Après avoir enregistré, vous pourrez ajouter les items.
+            </div>
+        <?php } else { ?>
+            <h2 class="border-top pt-3">Items</h2>
+
+            <?php foreach ($errorsListItem as $error) { ?>
+                <div class="alert alert-danger">
+                    <?= $error; ?>
+                </div>
+            <?php } ?>
+            
+            <form action="" method="post" class="d-flex">
+                <input type="checkbox" name="status" id="status">
+                <input type="text" name="name" id="name" placeholder="Ajoutez un item" class="form-control mx-2">
+                <input type="submit" name="saveItem" class="btn btn-primary" value="Enregistrer">
+            </form>
+        
+            <?php } ?>
     </div>
 </div>
 
