@@ -45,11 +45,11 @@ if (isset($_POST['saveList'])) {
 }
 
 //Le formulaire d'ajout/modif d'item a été envoyé
-if (isset($_POST['saveItem'])) {
+if (isset($_POST['saveListItem'])) {
     if (!empty($_POST['name'])) {
         //envoie du formulaire
-        $res = saveListItem($pdo, $_POST['name'], (int)$_GET['id'], false);
-        var_dump($res);
+        $item_id = (isset($_POST['item_id']) ? $_POST['item_id'] : null);
+        $res = saveListItem($pdo, $_POST['name'], (int)$_GET['id'], false, $item_id);
     } else {
         //erreur
         $errorsListItem[] = "Le nom de l'item est obligatoire.";
@@ -60,6 +60,7 @@ $editMode = false;
 if(isset($_GET['id'])){
     $list = getListById($pdo, (int)$_GET['id']);
     $editMode = true;
+    $items = getListItem($pdo, (int)$_GET['id']);
 }
 
 ?>
@@ -128,8 +129,33 @@ if(isset($_GET['id'])){
             <form action="" method="post" class="d-flex">
                 <input type="checkbox" name="status" id="status">
                 <input type="text" name="name" id="name" placeholder="Ajoutez un item" class="form-control mx-2">
-                <input type="submit" name="saveItem" class="btn btn-primary" value="Enregistrer">
+                <input type="submit" name="saveListItem" class="btn btn-primary" value="Enregistrer">
             </form>
+            <div class="row m-4 border rounded p-2">
+                <?php foreach ($items as $item) { ?>
+                    <div class="accordion mb-2">
+                        <div class="accordion-item" id="accordion-parent-<?= $item['id'] ?>">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-item-<?= $item['id'] ?>" aria-expanded="false" aria-controls="collapseOne">
+                                    <a class="me-2" href="#"><i class="bi bi-check-circle"></i></a>
+                                    <?= $item['name'] ?>
+                                </button>
+                            </h2>
+                            <div id="collapse-item-<?= $item['id'] ?>" class="accordion-collapse collapse" data-bs-parent="#accordion-parent-<?= $item['id'] ?>">
+                                <div class="accordion-body">
+                                    <form action="" method="post">
+                                        <div class="mb-3 d-flex">
+                                            <input type="text" value="<?= $item['name']; ?>" name="name" class="form-control">
+                                            <input type="hidden" name="item_id" value="<?= $item['id']; ?>">
+                                            <input type="submit" value="Enregistrer" name="saveListItem" class="btn btn-primary">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
         
             <?php } ?>
     </div>

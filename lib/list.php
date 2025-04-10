@@ -46,6 +46,14 @@ function saveList(PDO $pdo, string $title, int $userId, int $categoryId, int $id
     }
 }
 
+function getListItem(PDO $pdo, int $id):array
+{
+    $query = $pdo->prepare("SELECT * FROM item WHERE list_id = :id");
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function saveListItem(PDO $pdo, string $name, int $listId, bool $status, int $id=null):bool
 {
     if($id){
