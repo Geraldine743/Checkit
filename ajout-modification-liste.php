@@ -64,7 +64,11 @@ if(isset($_GET['action'])&& isset($_GET['item_id'])){
     }
     if($_GET['action'] === 'updateStatusListItem'){
         $res = updateListItemStatus($pdo, (int)$_GET['item_id'],(bool)$_GET['status']);
-        header('Location: ajout-modification-liste.php?id=' . $_GET['id']);
+        if (isset($_GET['redirect']) && $_GET['redirect'] === 'list') {
+            header('Location: mes-listes.php');
+        } else {
+            header('Location: ajout-modification-liste.php?id=' . $_GET['id']);
+        }
     }
 }
 
