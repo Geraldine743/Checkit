@@ -2,17 +2,33 @@
     require_once __DIR__ . "/templates/header.php"; 
     require_once __DIR__ . "/lib/pdo.php";
     require_once __DIR__ . "/lib/list.php";
+    require_once __DIR__."/lib/category.php";
 
-    if (isUserConnected()){ 
-        $lists = getListsByUserId($pdo, $_SESSION['user']['id']);
+    $categoryId = null;
+    if (isset($_SESSION['user'])) {
+        if (isset($_GET['category'])) {
+            $categoryId = (int)$_GET['category'];
+        }
+        $lists = getListsByUserId($pdo, $_SESSION['user']['id'], $categoryId);
     }
+    $categories = getCategories($pdo);
 ?>
 
 <div class="container">
     <div class="d-flex align-items-center justify-content-between">
         <h1>Mes listes</h1>
         <a href="ajout-modification-liste.php" class="btn btn-primary">Ajouter une liste</a>
+        <form action="" method="get">
+            <label for="category" class="form-label">Catégorie</label>
+            <select name="category" id="category" onchange="this.form.submit()">
+                <option value="">Toutes</option>
+                <?php foreach($categories as $category) { ?>
+                <option <?=((int)$category['id'] === $categoryId ? 'selected="selected"': '' )?> value="<?=$category['id']?>"><?=$category['name']?></option>
+                <?php } ?>
+            </select>
+        </form>
     </div>
+
     <div class="row">
     <?php if (isUserConnected()){ 
         if ($lists) {

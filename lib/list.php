@@ -1,14 +1,24 @@
 <?php
-function getListsByUserId(PDO $pdo ,int $userId):array
+function getListsByUserId(PDO $pdo ,int $userId, int $categoryId=null):array
 {
-    $query = $pdo->prepare("SELECT list.*, category.name as category_name, 
-                            category.icon as category_icon 
-                            FROM list
-                            JOIN category ON category.id = list.category_id 
-                            WHERE user_id = :user_id");
+    $sql = "SELECT list.*, category.name as category_name, 
+    category.icon as category_icon 
+    FROM list
+    JOIN category ON category.id = list.category_id 
+    WHERE user_id = :user_id";
+
+    if ($categoryId) {
+        $sql .= " AND list.category_id = :category_id";
+    }
+
+    $query = $pdo->prepare($sql);
     $query->bindValue(':user_id', $userId, PDO::PARAM_INT);
+    if ($categoryId) {
+        $query->bindValue(':category_id', $categoryId, PDO::PARAM_INT);
+    }
     $query->execute();
     $lists = $query->fetchAll(PDO::FETCH_ASSOC);
+
     return $lists;
 }
 
